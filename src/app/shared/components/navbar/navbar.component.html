@@ -1,0 +1,55 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <div class="container-fluid">
+    <!-- Brand/Logo -->
+    <a class="navbar-brand" href="#" *ngIf="!isLoggedIn">Ürün Yönetim Sistemi</a>
+
+    <!-- Admin Panel Title (only when logged in) -->
+    <span class="navbar-brand mb-0 h1" *ngIf="isLoggedIn">{{ currentTitle }}</span>
+
+    <!-- Mobile Toggle Button -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Navbar Content -->
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <!-- Left side - Product Selector (only on product detail pages) -->
+      <div class="navbar-nav me-auto" *ngIf="showProductSelector && isLoggedIn">
+        <!-- Product selector will be implemented with DevExtreme -->
+        <div class="d-flex align-items-center me-3">
+          <label class="text-white me-2">Ürün Seç:</label>
+          <select class="form-select" (change)="onProductSelect($any($event.target).value)">
+            <option value="">Ürün seçiniz...</option>
+            <!-- TODO: Populate with actual products -->
+            <option value="1">Ürün 1</option>
+            <option value="2">Ürün 2</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Right side - User Menu -->
+      <ul class="navbar-nav">
+        <li class="nav-item dropdown" *ngIf="isLoggedIn">
+          <a class="nav-link dropdown-toggle text-white" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown">
+            <i class="fas fa-user me-1"></i>
+            {{ currentUser?.name }}
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li><a class="dropdown-item" href="#"><i class="fas fa-user me-2"></i>Profil</a></li>
+            <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i>Ayarlar</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#" (click)="logout()"><i class="fas fa-sign-out-alt me-2"></i>Çıkış</a></li>
+          </ul>
+        </li>
+
+        <!-- Login/Register links for public pages -->
+        <li class="nav-item" *ngIf="!isLoggedIn">
+          <a class="nav-link text-white" [routerLink]="['/login']">Giriş</a>
+        </li>
+        <li class="nav-item" *ngIf="!isLoggedIn">
+          <a class="nav-link text-white" [routerLink]="['/register']">Kayıt</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

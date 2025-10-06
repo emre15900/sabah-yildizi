@@ -1,0 +1,128 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+      <div class="card shadow">
+        <div class="card-body">
+          <h2 class="card-title text-center mb-4">Kayıt Ol</h2>
+
+          <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="firstName" class="form-label">Ad</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="firstName"
+                  formControlName="firstName"
+                  placeholder="Adınızı giriniz"
+                  [class.is-invalid]="registerForm.get('firstName')?.touched && registerForm.get('firstName')?.errors">
+                <div class="invalid-feedback">
+                  {{ getFieldError('firstName') }}
+                </div>
+              </div>
+
+              <div class="col-md-6 mb-3">
+                <label for="lastName" class="form-label">Soyad</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="lastName"
+                  formControlName="lastName"
+                  placeholder="Soyadınızı giriniz"
+                  [class.is-invalid]="registerForm.get('lastName')?.touched && registerForm.get('lastName')?.errors">
+                <div class="invalid-feedback">
+                  {{ getFieldError('lastName') }}
+                </div>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="email" class="form-label">Email</label>
+              <input
+                type="email"
+                class="form-control"
+                id="email"
+                formControlName="email"
+                placeholder="Email adresinizi giriniz"
+                [class.is-invalid]="registerForm.get('email')?.touched && registerForm.get('email')?.errors">
+              <div class="invalid-feedback">
+                {{ getFieldError('email') }}
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="password" class="form-label">Şifre</label>
+                <input
+                  type="password"
+                  class="form-control"
+                  id="password"
+                  formControlName="password"
+                  placeholder="Şifrenizi giriniz"
+                  [class.is-invalid]="registerForm.get('password')?.touched && registerForm.get('password')?.errors">
+                <div class="invalid-feedback">
+                  {{ getFieldError('password') }}
+                </div>
+              </div>
+
+              <div class="col-md-6 mb-3">
+                <label for="confirmPassword" class="form-label">Şifre Tekrar</label>
+                <input
+                  type="password"
+                  class="form-control"
+                  id="confirmPassword"
+                  formControlName="confirmPassword"
+                  placeholder="Şifrenizi tekrar giriniz"
+                  [class.is-invalid]="registerForm.get('confirmPassword')?.touched && registerForm.get('confirmPassword')?.errors">
+                <div class="invalid-feedback">
+                  {{ getFieldError('confirmPassword') }}
+                </div>
+              </div>
+            </div>
+
+            <div class="mb-3 form-check">
+              <input
+                type="checkbox"
+                class="form-check-input"
+                id="acceptTerms"
+                formControlName="acceptTerms"
+                [class.is-invalid]="registerForm.get('acceptTerms')?.touched && registerForm.get('acceptTerms')?.errors">
+              <label class="form-check-label" for="acceptTerms">
+                <a href="#" class="text-decoration-none">Kullanım şartları</a>nı ve
+                <a href="#" class="text-decoration-none">gizlilik politikasını</a> kabul ediyorum
+              </label>
+              <div class="invalid-feedback">
+                {{ getFieldError('acceptTerms') }}
+              </div>
+            </div>
+
+            <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+              {{ errorMessage }}
+            </div>
+
+            <div *ngIf="successMessage" class="alert alert-success" role="alert">
+              {{ successMessage }}
+            </div>
+
+            <div class="d-grid">
+              <button
+                type="submit"
+                class="btn btn-primary"
+                [disabled]="isLoading">
+                <span *ngIf="isLoading" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                {{ isLoading ? 'Kayıt yapılıyor...' : 'Kayıt Ol' }}
+              </button>
+            </div>
+          </form>
+
+          <div class="text-center mt-3">
+            <small class="text-muted">
+              Zaten hesabınız var mı?
+              <a [routerLink]="['/login']" class="text-decoration-none">Giriş Yapın</a>
+            </small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
